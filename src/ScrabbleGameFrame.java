@@ -42,7 +42,7 @@ public class ScrabbleGameFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JPanel ButtonsPan = new JPanel();
-		ButtonsPan.setBounds(404, 10, 600, 600);
+		ButtonsPan.setBounds(360, 10, 700, 659);
 		ButtonsPan.add(ButtonManager.ButtonsPanel);
 		contentPane.add(ButtonsPan);
 		
@@ -52,17 +52,25 @@ public class ScrabbleGameFrame extends JFrame {
 		lblNewLabel.setBounds(90, 340, 205, 64);
 		contentPane.add(lblNewLabel);
 		
+		
+		
+		contentPane.add(PlayerManager.ScoreP1);
+		
+		
+		contentPane.add(PlayerManager.ScoreP2);
+		
 		JButton btnNewButton = new JButton("End Trun");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ButtonManager.endTrun();
+				ButtonManager.evaluate();
 			}
 		});
 		btnNewButton.setBounds(660, 672, 198, 64);
 		contentPane.add(btnNewButton);
 		
 		JPanel P1ButtonsPan = new JPanel();
-		P1ButtonsPan.setBounds(23, 402, 356, 64);
+		P1ButtonsPan.setBounds(0, 402, 356, 64);
 		P1ButtonsPan.add(PlayerManager.P1Panel);
 		contentPane.add(P1ButtonsPan);
 		
@@ -73,7 +81,7 @@ public class ScrabbleGameFrame extends JFrame {
 		contentPane.add(lb2NewLabel);
 		
 		JPanel P2ButtonsPan = new JPanel();
-		P2ButtonsPan.setBounds(1054, 402, 356, 64);
+		P2ButtonsPan.setBounds(1062, 402, 348, 64);
 		P2ButtonsPan.add(PlayerManager.P2Panel);
 		contentPane.add(P2ButtonsPan);
 	}

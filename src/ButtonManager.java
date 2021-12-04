@@ -20,7 +20,7 @@ public class ButtonManager {
 		ArrayList<Buttons> li=new ArrayList<Buttons>();
 		for(int i=0;i<15;i++) {
 			for(int j=0;j<15;j++) {
-				li.add(new Buttons(1,i,j,' '));
+				li.add(new Buttons(1,j,i,' '));
 				ButtonsPanel.add(li.get(j).getButton());
 			}
 			
@@ -68,10 +68,272 @@ public class ButtonManager {
 		}
 
 		for(Buttons b:PlayerClickedButtons) {
-			System.out.print(b.getValue());
-			b.getButton().setText(Character.toString( PlayerManager.alphabets.charAt(r.nextInt(26))));
+			//System.out.print(b.getValue()); 
+			String s=Character.toString( PlayerManager.alphabets.charAt(r.nextInt(26)));
+			b.getButton().setText(s);
+			b.setValue(s.charAt(0));
 		}
-		System.out.println();
+		//System.out.println();
 		PlayerClickedButtons.clear();
 	}
+	public static int VerifHorizonOrVerti() {
+		boolean horizontal=true;
+		boolean vertival=true;
+
+		for(int i =1;i<GridClickedButtons.size();i++) {
+			if(GridClickedButtons.get(i).getPosX()!=GridClickedButtons.get(0).getPosX()) {
+				vertival=false;
+			}
+			if(GridClickedButtons.get(i).getPosY()!=GridClickedButtons.get(0).getPosY()) {
+				horizontal=false;
+			}
+		}
+		if(vertival) {
+			return 1;
+		}
+		else if(horizontal) {
+			return 0;
+		}
+		else {
+			return -1;
+		}
+	}
+	public static void evaluate() {
+		String VerticalWordH="";
+		String HorizontalWordH="";
+		int X=GridClickedButtons.get(0).getPosX();
+		int Y=GridClickedButtons.get(0).getPosY();
+
+		if(GridClickedButtons.size()==0) {
+			//Aucun chiffre 
+		}
+		else if(GridClickedButtons.size()==1) {
+			int k=0;
+			for(int i=X;i>=0;i--) {
+				if(!list.get(Y).get(i).getButton().getText().equals(" ")) {
+					HorizontalWordH=list.get(Y).get(i).getButton().getText()+HorizontalWordH;
+					
+					/********Verification Left top****/////
+					for(int j=Y;j>=0;j--) {
+						if(!list.get(j).get(i).getButton().getText().equals(" ")) {
+							VerticalWordH=list.get(j).get(i).getButton().getText()+VerticalWordH;
+						}
+						else {
+							break;
+						}
+					}
+					/********Verification left down****/////
+					for(int j=Y+1;j<15;j++) {
+						if(!list.get(j).get(i).getButton().getText().equals(" ")) {
+							VerticalWordH+=list.get(j).get(i).getButton().getText();
+						}
+						else {
+							break;
+						}
+					}
+					if(VerticalWordH.length()>1) {
+						System.out.println("Vertical Word "+VerticalWordH);
+						k++;
+					}
+					VerticalWordH="";
+				}
+				else {
+					break;
+				}
+			}
+			for(int i=X+1;i<15;i++) {
+				if(!list.get(Y).get(i).getButton().getText().equals(" ")) {
+					HorizontalWordH+=list.get(Y).get(i).getButton().getText();
+					/********Verification Left top****/////
+					for(int j=Y;j>=0;j--) {
+						if(!list.get(j).get(i).getButton().getText().equals(" ")) {
+							VerticalWordH=list.get(j).get(i).getButton().getText()+VerticalWordH;
+						}
+						else {
+							break;
+						}
+					}
+					/********Verification left down****/////
+					for(int j=Y+1;j<15;j++) {
+						if(!list.get(j).get(i).getButton().getText().equals(" ")) {
+							VerticalWordH+=list.get(j).get(i).getButton().getText();
+						}
+						else {
+							break;
+						}
+					}
+					if(VerticalWordH.length()>1) {
+						System.out.println("Vertical Word "+VerticalWordH);
+						k++;
+					}
+					VerticalWordH="";
+				}
+				else {
+					break;
+				}
+			}
+			if(HorizontalWordH.length()==1) {
+				if(k==0) {
+					System.out.println("Horizontal Word "+HorizontalWordH);
+				}
+			}
+			else if(HorizontalWordH.length()>1)
+				System.out.println("Horizontal Word "+HorizontalWordH);
+			
+		}
+		else {
+			int Verif=VerifHorizonOrVerti();
+			if(Verif==0) {
+				/*Verification left*/
+				for(int i=X;i>=0;i--) {
+					if(!list.get(Y).get(i).getButton().getText().equals(" ")) {
+						HorizontalWordH=list.get(Y).get(i).getButton().getText()+HorizontalWordH;
+						
+						/********Verification Left top****/////
+						for(int j=Y;j>=0;j--) {
+							if(!list.get(j).get(i).getButton().getText().equals(" ")) {
+								VerticalWordH=list.get(j).get(i).getButton().getText()+VerticalWordH;
+							}
+							else {
+								break;
+							}
+						}
+						/********Verification left down****/////
+						for(int j=Y+1;j<15;j++) {
+							if(!list.get(j).get(i).getButton().getText().equals(" ")) {
+								VerticalWordH+=list.get(j).get(i).getButton().getText();
+							}
+							else {
+								break;
+							}
+						}
+						if(VerticalWordH.length()>1)
+							System.out.println("Vertical Word "+VerticalWordH);
+						VerticalWordH="";
+					}
+					else {
+						break;
+					}
+				}
+				for(int i=X+1;i<15;i++) {
+					if(!list.get(Y).get(i).getButton().getText().equals(" ")) {
+						HorizontalWordH+=list.get(Y).get(i).getButton().getText();
+						/********Verification Left top****/////
+						for(int j=Y;j>=0;j--) {
+							if(!list.get(j).get(i).getButton().getText().equals(" ")) {
+								VerticalWordH=list.get(j).get(i).getButton().getText()+VerticalWordH;
+							}
+							else {
+								break;
+							}
+						}
+						/********Verification left down****/////
+						for(int j=Y+1;j<15;j++) {
+							if(!list.get(j).get(i).getButton().getText().equals(" ")) {
+								VerticalWordH+=list.get(j).get(i).getButton().getText();
+							}
+							else {
+								break;
+							}
+						}
+						if(VerticalWordH.length()>1)
+							System.out.println("Vertical Word "+VerticalWordH);
+						VerticalWordH="";
+					}
+					else {
+						break;
+					}
+				}
+				if(HorizontalWordH.length()>1)
+					System.out.println("Horizontal Word "+HorizontalWordH);
+			
+			}
+			else if(Verif==1) {
+				
+				/*Verification top*/
+				for(int i=Y;i>=0;i--) {
+					if(!list.get(i).get(X).getButton().getText().equals(" ")) {
+						VerticalWordH=list.get(i).get(X).getButton().getText()+VerticalWordH;
+						/********Verification Left top****/////
+						for(int j=X;j>=0;j--) {
+							if(!list.get(i).get(j).getButton().getText().equals(" ")) {
+								HorizontalWordH=list.get(i).get(j).getButton().getText()+HorizontalWordH;
+							}
+							else {
+								break;
+							}
+						}
+						/********Verification left down****/////
+						for(int j=X+1;j<15;j++) {
+							if(!list.get(i).get(j).getButton().getText().equals(" ")) {
+								HorizontalWordH+=list.get(i).get(j).getButton().getText();
+							}
+							else {
+								break;
+							}
+						}
+						if(HorizontalWordH.length()>1)
+							System.out.println("Horizontal Word "+HorizontalWordH);
+						HorizontalWordH="";
+					}
+					else {
+						break;
+					}
+				}
+				/***verification down*/////
+				for(int i=Y+1;i<15;i++) {
+					if(!list.get(i).get(X).getButton().getText().equals(" ")) {
+						VerticalWordH+=list.get(i).get(X).getButton().getText();
+						/********Verification Left top****/////
+						for(int j=X;j>=0;j--) {
+							if(!list.get(i).get(j).getButton().getText().equals(" ")) {
+								HorizontalWordH=list.get(i).get(j).getButton().getText()+HorizontalWordH;
+							}
+							else {
+								break;
+							}
+						}
+						/********Verification left down****/////
+						for(int j=X+1;j<15;j++) {
+							if(!list.get(i).get(j).getButton().getText().equals(" ")) {
+								HorizontalWordH+=list.get(i).get(j).getButton().getText();
+							}
+							else {
+								break;
+							}
+						}
+						if(HorizontalWordH.length()>1)
+							System.out.println("Horizontal Word "+HorizontalWordH);
+						HorizontalWordH="";
+					}
+					else {
+						break;
+					}
+				}
+				if(VerticalWordH.length()>1)
+				System.out.println("Vertical  Word "+VerticalWordH);
+				
+				
+				
+				
+				
+				
+			}
+			else {
+				
+			}
+			
+			
+			
+		}
+		GridClickedButtons.clear();
+		PlayerClickedButtons.clear();
+		/*
+		for(int i=1;i<GridClickedButtons.size();i++) {
+			if(GridClickedButtons.get(i).getPosX()!=GridClickedButtons.get(i-1).getPosX()) {
+				
+			}
+		}*/
+	}
+
 }

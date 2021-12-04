@@ -8,6 +8,8 @@ import java.util.*;
 import javax.swing.*;
 
 public class PlayerManager {
+	static JLabel ScoreP1 = new JLabel("0");
+	static JLabel ScoreP2 = new JLabel("0");
 	static String alphabets="abcdefghijklmnopqrstuuvwxyz";
 	static JPanel P1Panel=new JPanel();
 	static JPanel P2Panel=new JPanel();
@@ -19,9 +21,14 @@ public class PlayerManager {
 	
 	public static PlayerManager PlayerManager;
 	static {
+		ScoreP1.setBackground(Color.WHITE);
+		ScoreP1.setHorizontalAlignment(SwingConstants.CENTER);
+		ScoreP1.setBounds(90, 20, 205, 64);
+		ScoreP2.setBackground(Color.WHITE);
+		ScoreP2.setHorizontalAlignment(SwingConstants.CENTER);
+		ScoreP2.setBounds(1121, 20, 205, 64);
 		Random r = new Random();
 		for(int i=0;i<7;i++) {
-			
 			listP1.add(new Buttons(1,i,0,alphabets.charAt(r.nextInt(26)),p1));
 			P1Panel.add(listP1.get(i).getButton());
 		}

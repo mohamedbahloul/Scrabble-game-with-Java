@@ -19,7 +19,7 @@ public class Buttons  implements ActionListener {
 		button=new JButton(Character.toString(Value));
 		button.addActionListener(this);
 		button.setPreferredSize(new Dimension(45,45));
-		button.setFont(new Font("Arial", Font.PLAIN, 7));
+		button.setFont(new Font("Arial", Font.BOLD, 7));
 	}
 	public Buttons(int score, int posX, int posY,char Value,Player p)  {
 		super();
