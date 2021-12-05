@@ -84,5 +84,6 @@ public class ScrabbleGameFrame extends JFrame {
 		P2ButtonsPan.setBounds(1062, 402, 348, 64);
 		P2ButtonsPan.add(PlayerManager.P2Panel);
 		contentPane.add(P2ButtonsPan);
+		this.setVisible(true);
 	}
 }

@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.*;
@@ -12,6 +14,19 @@ public class ButtonManager {
 	public static ArrayList<Buttons> GridClickedButtons=new ArrayList<Buttons>();
 	public static ArrayList<Buttons> PlayerClickedButtons=new ArrayList<Buttons>();
 	public static int CurrentPlayerTurn =0;
+	public static String dictionnaire="";
+	static {try {
+		String ligne ;
+		BufferedReader fichier = new BufferedReader(new FileReader("C:\\dictionnaire.txt"));
+		while ((ligne = fichier.readLine()) != null) 
+		{
+			ligne=ligne.toLowerCase();
+			dictionnaire +=ligne;
+		}
+		fichier.close();
+}catch (Exception e) {
+	e.printStackTrace();
+	} }
 	
 	static {
 		
@@ -75,6 +90,10 @@ public class ButtonManager {
 		}
 		//System.out.println();
 		PlayerClickedButtons.clear();
+	}
+	public static boolean VerifWord(String word)
+	{
+		return(dictionnaire.contains(word));
 	}
 	public static int VerifHorizonOrVerti() {
 		boolean horizontal=true;
@@ -336,4 +355,9 @@ public class ButtonManager {
 		}*/
 	}
 
+
+public static void main(String[] args)
+{
+	System.out.println(VerifWord("aaron"));
+}
 }
