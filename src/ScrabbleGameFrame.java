@@ -24,6 +24,7 @@ public class ScrabbleGameFrame extends JFrame {
 				try {
 					ScrabbleGameFrame frame = new ScrabbleGameFrame();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,8 +63,18 @@ public class ScrabbleGameFrame extends JFrame {
 		JButton btnNewButton = new JButton("End Trun");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ButtonManager.endTrun();
-				ButtonManager.evaluate();
+				//System.out.println(ButtonManager.evaluate());
+				int evaluation=ButtonManager.evaluate();
+				if(evaluation!=-1) {
+					PlayerManager.updateScore(evaluation);
+					ButtonManager.endTrun(true);
+					System.out.println("score= "+ evaluation);
+				}
+				else {
+					ButtonManager.endTrun(false);
+				}
+				
+				
 			}
 		});
 		btnNewButton.setBounds(660, 672, 198, 64);

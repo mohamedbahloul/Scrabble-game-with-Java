@@ -7,7 +7,7 @@ import java.awt.*;
 
 import javax.swing.*;
 public class Menu extends JFrame implements ActionListener,WindowListener {
-	JPanel contentPanel=new JPanel(new GridLayout(3,0));
+	JPanel contentPanel=new JPanel();
 	 JButton jouer =new JButton("Jouer");
 	 JButton regle =new JButton("Régles de jeu");
 	 JButton exit =new JButton("Quitter");
@@ -16,11 +16,17 @@ public class Menu extends JFrame implements ActionListener,WindowListener {
 		this.setTitle("Scrabble");
 		this.setSize(1000,800);
 		this.setLocationRelativeTo(null);
+		getContentPane().setLayout(null);
+		contentPanel.setBounds(0, 0, 986, 763);
+		contentPanel.setLayout(null);
+		jouer.setBounds(278, 100, 435, 100);
 		contentPanel.add(jouer);
+		regle.setBounds(278, 272, 435, 100);
 		contentPanel.add(regle);
+		exit.setBounds(278, 467, 435, 100);
 		contentPanel.add(exit);
 		contentPanel.setPreferredSize(new Dimension(50,50));
-	    this.getContentPane().add(contentPanel,BorderLayout.CENTER);
+	    this.getContentPane().add(contentPanel);
 		this.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {

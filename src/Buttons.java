@@ -41,7 +41,26 @@ public class Buttons  implements ActionListener {
 	}
 	
 	public int getScore() {
-		return score;
+		char c=button.getText().charAt(0);
+			switch(c) {
+			case 'a','e','i','l','o','r','s','t','u','n':
+				return 1;
+			case 'b','c','m','p':
+				return 3;
+			case 'd','g':
+				return 2;
+			case 'f','h','v','w','y':
+				return 4;
+			case 'k':
+				return 5;
+			case 'j','x':
+				return 8;
+			case 'z','q':
+				return 10;
+			default : 
+				return 1;
+			}
+		
 	}
 	public void setScore(int score) {
 		this.score = score;
