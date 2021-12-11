@@ -13,18 +13,29 @@ public class PlayerManager {
 	static String alphabets="abcdefghijklmnopqrstuuvwxyz";
 	static JPanel P1Panel=new JPanel();
 	static JPanel P2Panel=new JPanel();
-	static Player p1=new Player("hama");
-	static Player p2=new Player("mahdi");
+	static Player p1;
+	static Player p2;
+	static int EndGame=0;
+	static {
+		if((Menu.jeu.t1.getText().equals(""))||(Menu.jeu.t2.getText().equals("")))
+		{
+			p1=new Player("Player 1");
+			p2=new Player("Player 2");
+		}
+		else
+		{
+			p1=new Player(Menu.jeu.t1.getText());
+			p2=new Player(Menu.jeu.t2.getText());
+		}
+	}
 	static ArrayList<Buttons> listP1=new ArrayList<Buttons>();
 	static ArrayList<Buttons> listP2=new ArrayList<Buttons>();
 	int CurrentPlayerTurn =0;;
 	
 	public static PlayerManager PlayerManager;
 	static {
-		ScoreP1.setBackground(Color.WHITE);
 		ScoreP1.setHorizontalAlignment(SwingConstants.CENTER);
 		ScoreP1.setBounds(90, 20, 205, 64);
-		ScoreP2.setBackground(Color.WHITE);
 		ScoreP2.setHorizontalAlignment(SwingConstants.CENTER);
 		ScoreP2.setBounds(1121, 20, 205, 64);
 		Random r = new Random();
@@ -39,8 +50,39 @@ public class PlayerManager {
 			listP2.get(i).getButton().setEnabled(false);
 		}
 	}
-
-	
-
-
-}
+static {
+		
+		if(EndGame==3)
+	{
+			for(Buttons b : listP1) {
+				b.getButton().setEnabled(false);
+									}
+		for(Buttons b : listP2) 	{
+			b.getButton().setEnabled(false);
+									}
+		if(p1.getScore()>p2.getScore())
+			{
+				JFrame f= new JFrame();
+				f.setTitle("Fin du match");
+				f.add(new JLabel(p1.getPseudo()+" a gagné !"));
+				f.setSize(200,70);
+				f.setVisible(true);
+			}
+			else if(p2.getScore()>p1.getScore())
+			{
+				JFrame f= new JFrame();
+				f.setTitle("Fin du match");
+				f.add(new JLabel(p2.getPseudo()+" a gagné !"));
+				f.setSize(200,70);
+				f.setVisible(true);
+			}
+			else
+			{
+				JFrame f= new JFrame();
+				f.setTitle("Fin du match");
+				f.add(new JLabel("Match nul !"));
+				f.setSize(200,70);
+				f.setVisible(true);
+			}}
+		}
+	}
