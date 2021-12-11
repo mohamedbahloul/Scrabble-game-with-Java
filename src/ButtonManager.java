@@ -14,18 +14,10 @@ public class ButtonManager {
 	public static ArrayList<Buttons> GridClickedButtons=new ArrayList<Buttons>();
 	public static ArrayList<Buttons> PlayerClickedButtons=new ArrayList<Buttons>();
 	public static int CurrentPlayerTurn =0;
-<<<<<<< Updated upstream
 	public static String dictionnaire="";
 	static {try {
 		String ligne ;
 		BufferedReader fichier = new BufferedReader(new FileReader("C:\\dictionnaire.txt"));
-=======
-	public static ArrayList<String> dictionnaire=new ArrayList<String>();
-	static {
-		try {
-			String ligne ;
-			BufferedReader fichier = new BufferedReader(new FileReader("C:\\dictionnaire.txt"));
->>>>>>> Stashed changes
 		while ((ligne = fichier.readLine()) != null) 
 		{
 			ligne=ligne.toLowerCase();
@@ -43,10 +35,7 @@ public class ButtonManager {
 		ArrayList<Buttons> li=new ArrayList<Buttons>();
 		for(int i=0;i<15;i++) {
 			for(int j=0;j<15;j++) {
-				//li.add(new Buttons(1,j,i,' '));
-				Buttons NewButton=new Buttons(1,j,i,' ');
-				NewButton.getButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-				li.add(NewButton);
+				li.add(new Buttons(1,j,i,' '));
 				ButtonsPanel.add(li.get(j).getButton());
 			}
 			
@@ -106,7 +95,6 @@ public class ButtonManager {
 	{
 		return(dictionnaire.contains(word));
 	}
-	
 	public static int VerifHorizonOrVerti() {
 		boolean horizontal=true;
 		boolean vertival=true;

@@ -24,11 +24,6 @@ public class ScrabbleGameFrame extends JFrame {
 				try {
 					ScrabbleGameFrame frame = new ScrabbleGameFrame();
 					frame.setVisible(true);
-<<<<<<< Updated upstream
-=======
-					
-					
->>>>>>> Stashed changes
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,7 +47,7 @@ public class ScrabbleGameFrame extends JFrame {
 		contentPane.add(ButtonsPan);
 		
 		JLabel lblNewLabel = new JLabel(PlayerManager.p1.getPseudo());
-		lblNewLabel.setBackground(Color.white);
+		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(90, 340, 205, 64);
 		contentPane.add(lblNewLabel);
@@ -64,29 +59,11 @@ public class ScrabbleGameFrame extends JFrame {
 		
 		contentPane.add(PlayerManager.ScoreP2);
 		
-		JButton btnNewButton = new JButton("End Turn");
+		JButton btnNewButton = new JButton("End Trun");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< Updated upstream
 				ButtonManager.endTrun();
 				ButtonManager.evaluate();
-=======
-				//System.out.println(ButtonManager.evaluate());
-				int evaluation=ButtonManager.evaluate();
-				if(evaluation!=-1) {
-					PlayerManager.updateScore(evaluation);
-					ButtonManager.endTrun(true);
-					System.out.println("score= "+ evaluation);
-					PlayerManager.EndGame=0;
-					}
-				else {
-					
-					ButtonManager.endTrun(false);
-					PlayerManager.EndGame =PlayerManager.EndGame + 1;
-					}
-				
-				
->>>>>>> Stashed changes
 			}
 		});
 		btnNewButton.setBounds(660, 672, 198, 64);
@@ -99,7 +76,7 @@ public class ScrabbleGameFrame extends JFrame {
 		
 		JLabel lb2NewLabel = new JLabel(PlayerManager.p2.getPseudo());
 		lb2NewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lb2NewLabel.setBackground(Color.white);
+		lb2NewLabel.setBackground(Color.WHITE);
 		lb2NewLabel.setBounds(1121, 340, 205, 64);
 		contentPane.add(lb2NewLabel);
 		
@@ -109,4 +86,4 @@ public class ScrabbleGameFrame extends JFrame {
 		contentPane.add(P2ButtonsPan);
 		this.setVisible(true);
 	}
-	}
+}
