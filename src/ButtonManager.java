@@ -20,7 +20,7 @@ public class ButtonManager {
 	static {
 		try {
 			String ligne ;
-			BufferedReader fichier = new BufferedReader(new FileReader("C:\\Users\\mahdi\\Documents\\GitHub\\ScrabbleJava\\src\\dictionnaire.txt"));
+			BufferedReader fichier = new BufferedReader(new FileReader("C:\\Users\\bahlo\\OneDrive\\Documents\\GitHub\\ScrabbleJava\\src\\dictionnaire.txt"));
 		while ((ligne = fichier.readLine()) != null) 
 		{
 			ligne=ligne.toLowerCase();
@@ -37,7 +37,7 @@ public class ButtonManager {
 			for(int j=0;j<15;j++) {
 				//li.add(new Buttons(1,j,i,' '));
 				Buttons NewButton=new Buttons(1,j,i,' ');
-				NewButton.getButton().setFont(new Font("Tahoma", Font.PLAIN, 8));
+				NewButton.getButton().setFont(new Font("Tahoma", Font.PLAIN, 9));
 				li.add(NewButton);
 				ButtonsPanel.add(li.get(j).getButton());
 			}
@@ -182,8 +182,10 @@ public class ButtonManager {
 		}
 	}
 	public static void endGame() {
-		Menu.GameFrame.setVisible(false);
-		JOptionPane.showMessageDialog(null, "You loose!!");
+		EndGame endGame=new EndGame();
+		endGame.setVisible(true);
+		ScrabbleGameFrame.GameFrame.setVisible(false);
+		System.out.println("haha");
 		
 	}
 	public static int evaluate() {
@@ -210,7 +212,7 @@ public class ButtonManager {
 			//Aucun chiffre 
 			//System.out.println("no chiffre");
 			passNumber++;
-			if(passNumber>=3) {
+			if(passNumber>3) {
 				endGame();
 			}
 			return -1;

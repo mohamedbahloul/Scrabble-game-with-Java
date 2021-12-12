@@ -6,15 +6,19 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class Menu extends JFrame implements ActionListener{
+public class Menu extends JFrame implements ActionListener,WindowListener{
 
 	private JPanel contentPane;
 	JButton btnNewButton = new JButton("Jouer");
@@ -22,7 +26,7 @@ public class Menu extends JFrame implements ActionListener{
 	JButton btnQuitter = new JButton("Quitter");
 	JLabel lblNewLabel_2 = new JLabel("Bienvenue au jeu du scrabble");
 	JLabel lblNewLabel = new JLabel("");
-	Menu frame ;
+	static Menu frame ;
 	static ScrabbleGameFrame GameFrame;
 	/**
 	 * Launch the application.
@@ -31,7 +35,7 @@ public class Menu extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
+					 frame = new Menu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,6 +48,8 @@ public class Menu extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public Menu() {
+		addWindowListener(this);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Bienvenue au jeu du scrabble");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 585, 398);
@@ -85,7 +91,7 @@ public class Menu extends JFrame implements ActionListener{
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\mahdi\\Documents\\GitHub\\ScrabbleJava\\src\\scrabble.PNG"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\bahlo\\OneDrive\\Documents\\GitHub\\ScrabbleJava\\src\\scrabble.PNG"));
 		lblNewLabel.setBounds(0, 0, 571, 361);
 		contentPane.add(lblNewLabel);
 		btnNewButton.addActionListener(new jeu());
@@ -93,7 +99,10 @@ public class Menu extends JFrame implements ActionListener{
 		btnQuitter.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent e) {
-		System.exit(0);
+		int retour =JOptionPane.showConfirmDialog(this,"Voulez-vous vraiment quitter?","Quitter",JOptionPane.YES_NO_OPTION);
+		if(retour==0){
+			System.exit(0);
+		}
 	}
 	public static class regles extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e)
@@ -131,6 +140,7 @@ public class Menu extends JFrame implements ActionListener{
 	}
 	public static class jeu extends JFrame implements ActionListener
 	{
+		
 		JLabel p1=new JLabel("Player 1 :");
 	JLabel p2=new JLabel("Player 2 :");
 	static JTextField t1=new JTextField(10);
@@ -140,6 +150,7 @@ public class Menu extends JFrame implements ActionListener{
 	JFrame f= new JFrame();
 		public void actionPerformed(ActionEvent e)
 		{	
+			frame.setVisible(false);
 			f.setLayout(new GridLayout(3,2));
 			jouer.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			jouer.setForeground(new Color(0, 0, 0));
@@ -161,6 +172,50 @@ public class Menu extends JFrame implements ActionListener{
 			}
 		}));
 		}
+	}
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		int retour =JOptionPane.showConfirmDialog(this,"Voulez-vous vraiment quitter?","Quitter",JOptionPane.YES_NO_OPTION);
+		if(retour==0){
+			System.exit(0);
+		}
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
