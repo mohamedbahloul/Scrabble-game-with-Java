@@ -1,12 +1,12 @@
 
-public class Player {
+public class Player { //Chaque joueur contient un score et un pseudo
 	
 	int score;
 	String pseudo;
-	public Player(String pseudo) {
+	public Player(String pseudo) { //Constructeur
 		this.pseudo=pseudo;
 	}
-	public int getScore() {
+	public int getScore() { //Getters et setters
 		return score;
 	}
 	public void setScore(int score) {

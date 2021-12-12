@@ -10,27 +10,27 @@ import javax.swing.*;
 public class ButtonManager {
 	static int passNumber=1;
 	static int turnNumber=0;
-	static ArrayList<ArrayList<Buttons>> list=new ArrayList<ArrayList<Buttons>>();
-	static JPanel ButtonsPanel=new JPanel();
-	static Buttons CurrentPlayerButtonClicked=null;
-	public static ArrayList<Buttons> GridClickedButtons=new ArrayList<Buttons>();
-	public static ArrayList<Buttons> PlayerClickedButtons=new ArrayList<Buttons>();
-	public static int CurrentPlayerTurn =0;
-	public static ArrayList<String> dictionnaire=new ArrayList<String>();
+	static ArrayList<ArrayList<Buttons>> list=new ArrayList<ArrayList<Buttons>>(); //liste contenant les boutons de la grille
+	static JPanel ButtonsPanel=new JPanel(); //JPanel contenant les boutons de la grille
+	static Buttons CurrentPlayerButtonClicked=null; //le boutant courant cliqué par un joueur
+	public static ArrayList<Buttons> GridClickedButtons=new ArrayList<Buttons>(); //Une liste des boutons cliqués sur la grille
+	public static ArrayList<Buttons> PlayerClickedButtons=new ArrayList<Buttons>(); //Une liste des boutons cliqués par un joueur
+	public static int CurrentPlayerTurn =0; //0 si le 1er joueur joue , 1 si le 2eme joueur joue
+	public static ArrayList<String> dictionnaire=new ArrayList<String>(); //liste contenant le dictionnaire
 	static {
 		try {
 			String ligne ;
-			BufferedReader fichier = new BufferedReader(new FileReader("C:\\Users\\bahlo\\OneDrive\\Documents\\GitHub\\ScrabbleJava\\src\\dictionnaire.txt"));
+			BufferedReader fichier = new BufferedReader(new FileReader("C:\\Users\\mahdi\\Documents\\GitHub\\ScrabbleJava\\src\\dictionnaire.txt"));
 		while ((ligne = fichier.readLine()) != null) 
 		{
 			ligne=ligne.toLowerCase();
-			dictionnaire.add(ligne);
+			dictionnaire.add(ligne); //ajout du dictionnaire dans l'array list
 		}
 		fichier.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		} 
-		ButtonsPanel.setLayout(new GridLayout(15,15));
+		ButtonsPanel.setLayout(new GridLayout(15,15)); //La grille est de taille 15*15
 		ButtonsPanel.setPreferredSize(new Dimension(600,600));
 		ArrayList<Buttons> li=new ArrayList<Buttons>();
 		for(int i=0;i<15;i++) {
@@ -39,21 +39,21 @@ public class ButtonManager {
 				Buttons NewButton=new Buttons(1,j,i,' ');
 				NewButton.getButton().setFont(new Font("Tahoma", Font.PLAIN, 9));
 				li.add(NewButton);
-				ButtonsPanel.add(li.get(j).getButton());
+				ButtonsPanel.add(li.get(j).getButton()); //remplir la grille par les 15*15 boutons
 			}
-			list.add(li);
+			list.add(li); //ajout d'une ligne des boutons dans la liste des boutons de la grille
 			li=new ArrayList<Buttons>();
 		}
-		list.get(7).get(7).getButton().setText("*");
+		list.get(7).get(7).getButton().setText("*"); //La case au milieu de la grille doit contenir une étoile
 	}
-	public static void onButtonClick(Buttons btn) {
-		if(btn.getPlayer()==null) {
-			if(CurrentPlayerButtonClicked!=null) {
-				if(GridClickedButtons.contains(btn)) {
+	public static void onButtonClick(Buttons btn) { //Bouton cliqué par un joueur
+		if(btn.getPlayer()==null) { //Le bouton n'admet pas de joueur =>bouton dans la grille
+			if(CurrentPlayerButtonClicked!=null) { //Avant de joueur , on doit verifier que le joueur a sélectionné une lettre
+				if(GridClickedButtons.contains(btn)) { 
 					
-					for(int i=0;i<PlayerClickedButtons.size();i++) {
+					for(int i=0;i<PlayerClickedButtons.size();i++) { 
 						if(PlayerClickedButtons.get(i).getValue()==btn.getButton().getText().charAt(0)) {						
-							PlayerClickedButtons.get(i).getButton().setEnabled(true);
+							PlayerClickedButtons.get(i).getButton().setEnabled(true); 
 							PlayerClickedButtons.get(i).getButton().setText(Character.toString(PlayerClickedButtons.get(i).getValue()));
 							break;
 						}
@@ -84,104 +84,106 @@ public class ButtonManager {
 					
 				}
 			}
-		}else {
-			CurrentPlayerButtonClicked=btn;
+		}//Fin de la condition(Bouton dans la grille)
+		else {
+			CurrentPlayerButtonClicked=btn;//Si le bouton cliqué est un bouton d'un joueur , Le bouton courant cliqué prend la valeur du bouton 
 		}
 		
 	}
-	public static void ReturnButtons() {
-		for(Buttons b : PlayerClickedButtons) {
-			b.getButton().setText(Character.toString( b.getValue()));
-			b.getButton().setEnabled(true);
+	public static void ReturnButtons() { //Méthode permettant de retourner les boutons de l'utilisateur lors de l'échec d'un mot
+		for(Buttons b : PlayerClickedButtons) { //Parcours des boutons cliqués par l'utilisateur
+			b.getButton().setText(Character.toString( b.getValue()));//Retourner la valeur du bouton
+			b.getButton().setEnabled(true);//Le bouton est accessible pour choisir
 		}
 		for(Buttons b : GridClickedButtons) {
-			b.getButton().setText(" ");
+			b.getButton().setText(" ");//Modifier la valeur des boutons cliqués sur la grille par un espace
 			if((b.getPosX()==7)&&(b.getPosY()==7)) {
-				b.getButton().setText("*");
+				b.getButton().setText("*"); //La case centrale contient une étoile
 			}
 		}
 	}
-	public static void endTrun(boolean testEval) {
+	public static void endTrun(boolean testEval) {//Méthode à appeler lors du fin du tour d'un joueur
 		
 		CurrentPlayerButtonClicked=null;
 		
 		Random r = new Random();
-		if(testEval) {
-			for(Buttons b:PlayerClickedButtons) {
-				if(PlayerManager.alphabets.length()!=0) {
-					int randomInt=r.nextInt(PlayerManager.alphabets.length());
-					String s=Character.toString(PlayerManager.alphabets.charAt(randomInt));
-					PlayerManager.alphabets = PlayerManager.alphabets.replaceFirst(Character.toString(PlayerManager.alphabets.charAt(randomInt)), "");
-					b.getButton().setText(s);
+		if(testEval) { //Si le mot est valide
+			for(Buttons b:PlayerClickedButtons) {//Parcours des boutons cliqués par l'utilisateur
+				if(PlayerManager.alphabets.length()!=0) {//S'il existe encore des lettres disponibles pour compléter les lettres du joueur
+					int randomInt=r.nextInt(PlayerManager.alphabets.length()); 
+					String s=Character.toString(PlayerManager.alphabets.charAt(randomInt)); //Génération d'une lettre aléatoire
+					PlayerManager.alphabets = PlayerManager.alphabets.replaceFirst(Character.toString(PlayerManager.alphabets.charAt(randomInt)), "");//Suppression de la lettre aléatoire de la chaine des alphabets
+					b.getButton().setText(s);//Le bouton de l'utilisateur prend la valeur de la lettre aléatoire
 					b.setValue(s.charAt(0));
 				}
-				else {
-					endGame();
+				else { //Si n'existe pas des lettres de l'alphabet à appeler
+					endGame(); //Fin du jeu
 				}
 				
 			}
 			for(Buttons b :GridClickedButtons) {
-				b.getButton().setEnabled(false);
+				b.getButton().setEnabled(false);//Les boutons cliqués sur la grille ne seront plus disponibles pour cliquer
 			}
 			turnNumber++;
 			//System.out.println();
 		
 		}
+		//Si le mot n'est pas valide , on retourne les boutons du joueur
 		else {
 			ReturnButtons();
 		}
-		if(CurrentPlayerTurn==0) {
+		if(CurrentPlayerTurn==0) { //Si le 1er joueur a joué
 			
-			for(Buttons b:PlayerManager.listP1) {
+			for(Buttons b:PlayerManager.listP1) {//Les boutons du 1er joueur sont bloqués
 				b.getButton().setEnabled(false);
 			}
-			for(Buttons b:PlayerManager.listP2) {
+			for(Buttons b:PlayerManager.listP2) {//Les boutons du 2éme joueur sont débloqués
 				b.getButton().setEnabled(true);
 			}
-			CurrentPlayerTurn=1;
+			CurrentPlayerTurn=1;//on passe au tour du 2éme joueur
 		}
-		else {
-			for(Buttons b:PlayerManager.listP2) {
+		else {//Si le 2éme joueur a joué
+			for(Buttons b:PlayerManager.listP2) {//Les boutons du 2éme joueur sont bloqués
 				b.getButton().setEnabled(false);
 			}
-			for(Buttons b:PlayerManager.listP1) {
+			for(Buttons b:PlayerManager.listP1) {//Les boutons du 1er joueur sont débloqués
 				b.getButton().setEnabled(true);
 			}
 			
-			CurrentPlayerTurn=0;
+			CurrentPlayerTurn=0;//on passe au tour du 2éme joueur
 		}
 		
-		PlayerClickedButtons.clear();
+		PlayerClickedButtons.clear();//Les 2 listes des boutons cliqués par le joueur et sur la grille seront effacées
 		GridClickedButtons.clear();
 	}
 	public static boolean VerifWord(String word)
 	{
-		//return(dictionnaire.contains(word));
-		return true;
+		return(dictionnaire.contains(word)); //Vérifie si le mot est disponible ou pas dans le dictionnaire Français
+		//return true;
 	}
-	public static int VerifHorizonOrVerti() {
+	public static int VerifHorizonOrVerti() { //Vérifie si le mot entré par le joueur est vertical ou horizontal
 		boolean horizontal=true;
 		boolean vertival=true;
 
-		for(int i =1;i<GridClickedButtons.size();i++) {
-			if(GridClickedButtons.get(i).getPosX()!=GridClickedButtons.get(0).getPosX()) {
-				vertival=false;
+		for(int i =1;i<GridClickedButtons.size();i++) {//Parcours des lettres cliqués sur la grille
+			if(GridClickedButtons.get(i).getPosX()!=GridClickedButtons.get(0).getPosX()) { 
+				vertival=false; //Vérification si le mot n'est pas vertical
 			}
 			if(GridClickedButtons.get(i).getPosY()!=GridClickedButtons.get(0).getPosY()) {
-				horizontal=false;
+				horizontal=false;//Vérification si le mot n'est pas horizontal
 			}
 		}
 		if(vertival) {
-			return 1;
+			return 1;//Si le mot est vertical on retourne 1
 		}
 		else if(horizontal) {
-			return 0;
+			return 0;//Si le mot est horizontal on retourne 0
 		}
 		else {
-			return -1;
+			return -1;//sinon on retourne -1 (mot n'est pas valide)
 		}
 	}
-	public static void endGame() {
+	public static void endGame() {//Méthode pour arrêter le jeu , en appelant la fenetre EndGame
 		EndGame endGame=new EndGame();
 		endGame.setVisible(true);
 		ScrabbleGameFrame.GameFrame.setVisible(false);

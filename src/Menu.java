@@ -18,16 +18,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class Menu extends JFrame implements ActionListener,WindowListener{
+public class Menu extends JFrame implements ActionListener,WindowListener{ //Classe du menu principal du jeu
 
 	private JPanel contentPane;
-	JButton btnNewButton = new JButton("Jouer");
-	JButton btnRgles = new JButton("R\u00E8gles");
-	JButton btnQuitter = new JButton("Quitter");
-	JLabel lblNewLabel_2 = new JLabel("Bienvenue au jeu du scrabble");
-	JLabel lblNewLabel = new JLabel("");
-	static Menu frame ;
-	static ScrabbleGameFrame GameFrame;
+	JButton btnNewButton = new JButton("Jouer"); //Bouton jouer pour passer Au jeu
+	JButton btnRgles = new JButton("R\u00E8gles"); //Bouton Règles pour voir les règles du jeu
+	JButton btnQuitter = new JButton("Quitter"); //Bouton quitter pour quitter le jeu
+	JLabel lblNewLabel_2 = new JLabel("Bienvenue au jeu du scrabble"); //Jlabel pour dire salut
+	JLabel lblNewLabel = new JLabel(""); //Jlabel vide
+	static Menu frame ; //La fenetre du menu
+	static ScrabbleGameFrame GameFrame; //La fenetre du jeu 
 	/**
 	 * Launch the application.
 	 */
@@ -35,7 +35,7 @@ public class Menu extends JFrame implements ActionListener,WindowListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					 frame = new Menu();
+					 frame = new Menu(); //Affichage du menu
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,33 +50,29 @@ public class Menu extends JFrame implements ActionListener,WindowListener{
 	public Menu() {
 		addWindowListener(this);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setTitle("Bienvenue au jeu du scrabble");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Bienvenue au jeu du scrabble"); //Titre
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitter quand Close est cliqué
 		setBounds(100, 100, 585, 398);
-		contentPane = new JPanel();
+		contentPane = new JPanel(); //JPanel du contenu de la fenetre
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Jouer");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15)); //Pour mieu visualiser le bouton jouer
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(240, 240, 240));
 		btnNewButton.setBounds(224, 188, 112, 40);
 		contentPane.add(btnNewButton);
 		
-		JButton btnRgles = new JButton("R\u00E8gles");
-		btnRgles.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		JButton btnRgles = new JButton("R\u00E8gles"); //Pour mieu visualiser le bouton règles
 		btnRgles.setForeground(Color.BLACK);
 		btnRgles.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnRgles.setBackground(SystemColor.menu);
 		btnRgles.setBounds(224, 238, 112, 40);
 		contentPane.add(btnRgles);
 		
-		JButton btnQuitter = new JButton("Quitter");
+		JButton btnQuitter = new JButton("Quitter"); //Pour mieu visualiser le bouton quitter
 		btnQuitter.setForeground(Color.BLACK);
 		btnQuitter.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnQuitter.setBackground(SystemColor.menu);
@@ -84,30 +80,30 @@ public class Menu extends JFrame implements ActionListener,WindowListener{
 		contentPane.add(btnQuitter);
 		
 		
-		JLabel lblNewLabel_2 = new JLabel("Bienvenue au jeu du scrabble");
+		JLabel lblNewLabel_2 = new JLabel("Bienvenue au jeu du scrabble");//Pour mieu visualiser le JLabel du salut
 		lblNewLabel_2.setFont(new Font("VELOCISTA", Font.PLAIN, 30));
 		lblNewLabel_2.setForeground(new Color(0, 0, 0));
 		lblNewLabel_2.setBounds(40, 83, 644, 123);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\bahlo\\OneDrive\\Documents\\GitHub\\ScrabbleJava\\src\\scrabble.PNG"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\mahdi\\Documents\\GitHub\\ScrabbleJava\\src\\scrabble.PNG")); //Ajout de l'arriere plan de la fenetre menu
 		lblNewLabel.setBounds(0, 0, 571, 361);
 		contentPane.add(lblNewLabel);
-		btnNewButton.addActionListener(new jeu());
-		btnRgles.addActionListener(new regles());
-		btnQuitter.addActionListener(this);
+		btnNewButton.addActionListener(new jeu());//ActionListener pour passer au jeu
+		btnRgles.addActionListener(new regles());//ActionListener pour passer aux règles
+		btnQuitter.addActionListener(this); //ActionListener pour quitter
 	}
 	public void actionPerformed(ActionEvent e) {
-		int retour =JOptionPane.showConfirmDialog(this,"Voulez-vous vraiment quitter?","Quitter",JOptionPane.YES_NO_OPTION);
+		int retour =JOptionPane.showConfirmDialog(this,"Voulez-vous vraiment quitter?","Quitter",JOptionPane.YES_NO_OPTION); //ActionPerformed pour quitter
 		if(retour==0){
 			System.exit(0);
 		}
 	}
-	public static class regles extends JFrame implements ActionListener {
+	public static class regles extends JFrame implements ActionListener { //Classe regle contenant le actionPerformed pour passer aux règles
 		public void actionPerformed(ActionEvent e)
 		{
-		JFrame f=new JFrame();
+		JFrame f=new JFrame(); //affichage d'une nouvlle fenetre contenant les règles du jeu
 		String ch1="Nombre de joueurs du Scrabble : 2 joueurs \n";
 		String ch2="But du jeu : Cumuler le plus de points en formant des mots entrecroisés sur une grille de 15×15 cases. "+ "Chaque lettre possède des une valeur de 1.";
 		String ch3="Pour placer un mot : \n";
@@ -138,7 +134,7 @@ public class Menu extends JFrame implements ActionListener,WindowListener{
 			f.setVisible(true);
 		}
 	}
-	public static class jeu extends JFrame implements ActionListener
+	public static class jeu extends JFrame implements ActionListener //Classe jeu contenant le actionPerformed pour passer au jeu
 	{
 		
 		JLabel p1=new JLabel("Player 1 :");
@@ -150,7 +146,7 @@ public class Menu extends JFrame implements ActionListener,WindowListener{
 	JFrame f= new JFrame();
 		public void actionPerformed(ActionEvent e)
 		{	
-			frame.setVisible(false);
+			frame.setVisible(false); //Affichage d'une nouvelle fenetre demandant l'utilisateur de saisir les noms des 2 joueurs
 			f.setLayout(new GridLayout(3,2));
 			jouer.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			jouer.setForeground(new Color(0, 0, 0));
@@ -159,16 +155,16 @@ public class Menu extends JFrame implements ActionListener,WindowListener{
 			f.getContentPane().setBackground(Color.orange );
 			f.setSize(300,150);
 			f.setVisible(true);
-			jouer.addActionListener((new ActionListener() {
+			jouer.addActionListener((new ActionListener() { //Pour passer à la Fenetre du jeu
 			public void actionPerformed(ActionEvent e) {
-				if(!t1.getText().equals("")) {
+				if(!t1.getText().equals("")) { //Si l'utilisateur n'a pas mentionné l'un des noms ou les 2 noms des joueurs , ils seront Player 1 et Player 2 par défaut
 					PlayerManager.p1.setPseudo(t1.getText());
 				}
 				if(!t2.getText().equals("")) {
 					PlayerManager.p2.setPseudo(t2.getText());
 				}
 				f.setVisible(false);
-				GameFrame=new ScrabbleGameFrame();
+				GameFrame=new ScrabbleGameFrame(); //Affichage de la fenetre du jeu
 			}
 		}));
 		}

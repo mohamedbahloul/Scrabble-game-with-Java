@@ -26,13 +26,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLayeredPane;
 
-public class ScrabbleGameFrame extends JFrame implements WindowListener {
+public class ScrabbleGameFrame extends JFrame implements WindowListener {//Fenetre du jeu
 
-	public static boolean endGame=false;
-	static JLabel Timer = new JLabel("480");
-	public static int currentTime=480;
+	public static boolean endGame=false;//Variable booléenne pour déclencher la fin du jeu
+	static JLabel Timer = new JLabel("480");//JLabel indiquant la durée restante du jeu
+	public static int currentTime=480;//Le temps restant pour le jeu
 	private JPanel contentPane;
-	static ScrabbleGameFrame GameFrame;
+	static ScrabbleGameFrame GameFrame; //Variable static à utiliser dans des autres classes
 	/**
 	 * Launch the application.
 	 */
@@ -40,7 +40,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ScrabbleGameFrame frame = new ScrabbleGameFrame();
+					ScrabbleGameFrame frame = new ScrabbleGameFrame();//Affichage de la fenetre
 					frame.setVisible(true);
 					counter();
 					
@@ -55,45 +55,45 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 	 * Create the frame.
 	 */
  
-	public static void resetAllValues() {
-		PlayerManager.p1.setScore(0);
+	public static void resetAllValues() { //Méthode à appeler si les joueurs veulent rejouer
+		PlayerManager.p1.setScore(0); //Les scores sont à 0
 		PlayerManager.p2.setScore(0);
 		for(ArrayList<Buttons> list: ButtonManager.list) {
 			for(Buttons b : list) {
-				b.getButton().setEnabled(true);
+				b.getButton().setEnabled(true);  //Les boutons de la grille sont prêts et leurs valeurs sont vides
 				b.getButton().setText(" ");
 				b.setValue(' ');
 			}
 		}
-		ButtonManager.list.get(7).get(7).getButton().setText("*");
-		ButtonManager.turnNumber=0;
+		ButtonManager.list.get(7).get(7).getButton().setText("*"); //case étoile centrale
+		ButtonManager.turnNumber=0; //TurnNumber et PassNumber prennent la valeur 0
 		ButtonManager.passNumber=0;
-		PlayerManager.alphabets="aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooppqrrrrrrrrssssttttttuuuuvvwwxyyz";
-		PlayerManager.ScoreP1.setText("0");
+		PlayerManager.alphabets="aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooppqrrrrrrrrssssttttttuuuuvvwwxyyz";//Chaine alphabets complète
+		PlayerManager.ScoreP1.setText("0"); //Les JLabels prennent les valeurs des scores
 		PlayerManager.ScoreP2.setText("0");
-		currentTime=480;
+		currentTime=480; //La durée de jeu est 480 secondes
 		endGame=false;
 		Timer.setText("480");
 		
 	}
 	public ScrabbleGameFrame() {
-		GameFrame=this;
+		GameFrame=this; //Instancier la valeur static GameFrame 
 		addWindowListener(this);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1445, 850);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.ORANGE);
+		contentPane.setBackground(Color.ORANGE);//Background orangé
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JPanel ButtonsPan = new JPanel();
 		ButtonsPan.setBackground(Color.ORANGE);
 		ButtonsPan.setBounds(370, 77, 700, 659);
-		ButtonsPan.add(ButtonManager.ButtonsPanel);
+		ButtonsPan.add(ButtonManager.ButtonsPanel); //Ajout du ButtonsPanel de la classe ButtonManager
 		contentPane.add(ButtonsPan);
 		
-		JLabel lblNewLabel = new JLabel(PlayerManager.p1.getPseudo());
+		JLabel lblNewLabel = new JLabel(PlayerManager.p1.getPseudo());//Ajout des pseudos des joueurs et leurs scores de la PlayerManager
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setBackground(Color.ORANGE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -107,20 +107,20 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		PlayerManager.ScoreP2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contentPane.add(PlayerManager.ScoreP2);
 		
-		JButton btnNewButton = new JButton("End Turn");
+		JButton btnNewButton = new JButton("End Turn");//Ajout du bouton EndTurn pour terminer le tour
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBackground(new Color(240, 240, 240));
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton.addActionListener(new ActionListener() {//Ajout d'un ActionListener pour ce bouton
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println(ButtonManager.evaluate());
 				int evaluation=ButtonManager.evaluate();
-				if(evaluation!=-1) {
-					PlayerManager.updateScore(evaluation);
-					ButtonManager.endTrun(true);
+				if(evaluation!=-1) { //Si le mot est valide
+					PlayerManager.updateScore(evaluation); //Mise à jour du score
+					ButtonManager.endTrun(true);//Appel de la fonction end turn(true) car le mot est valide
 					System.out.println("score= "+ evaluation);
 				}
 				else {
-					ButtonManager.endTrun(false);
+					ButtonManager.endTrun(false);//Appel de la fonction end turn(false) car le mot est invalide
 				}
 				
 				
@@ -129,7 +129,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		btnNewButton.setBounds(624, 739, 198, 64);
 		contentPane.add(btnNewButton);
 		
-		JPanel P1ButtonsPan = new JPanel();
+		JPanel P1ButtonsPan = new JPanel();//Ajout des JPanles des boutons des 2 joueurs
 		P1ButtonsPan.setBounds(10, 469, 356, 64);
 		PlayerManager.P1Panel.setBackground(Color.ORANGE);
 		P1ButtonsPan.add(PlayerManager.P1Panel);
@@ -155,7 +155,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		contentPane.add(label);
 		
 		
-		Timer.setHorizontalAlignment(SwingConstants.CENTER);
+		Timer.setHorizontalAlignment(SwingConstants.CENTER);//Ajout du label affichant le temps restant
 		Timer.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Timer.setBounds(682, 10, 140, 64);
 		contentPane.add(Timer);
@@ -164,16 +164,16 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		
 	}
 
-	public static void counter() {
+	public static void counter() {//Méhode gérant le compteur
 		
 		ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	if((currentTime<=0)&&(endGame==false)) {
-            		ButtonManager.endGame();
+            	if((currentTime<=0)&&(endGame==false)) {//Si le temps maximal est atteint
+            		ButtonManager.endGame();//Fin de la partie
             		endGame=true;
                 }
                 //...Perform a task...
-            	currentTime--;
+            	currentTime--;//Diminution du temps courant 
             	Timer.setText(currentTime+"");
             	
             }
