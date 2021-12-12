@@ -8,6 +8,7 @@ import java.util.*;
 import javax.swing.*;
 
 public class ButtonManager {
+	static int passNumber=1;
 	static int turnNumber=0;
 	static ArrayList<ArrayList<Buttons>> list=new ArrayList<ArrayList<Buttons>>();
 	static JPanel ButtonsPanel=new JPanel();
@@ -48,15 +49,12 @@ public class ButtonManager {
 				if(GridClickedButtons.contains(btn)) {
 					
 					for(int i=0;i<PlayerClickedButtons.size();i++) {
-						if(PlayerClickedButtons.get(i).getValue()==btn.getButton().getText().charAt(0)) {
-							
+						if(PlayerClickedButtons.get(i).getValue()==btn.getButton().getText().charAt(0)) {						
 							PlayerClickedButtons.get(i).getButton().setEnabled(true);
 							PlayerClickedButtons.get(i).getButton().setText(Character.toString(PlayerClickedButtons.get(i).getValue()));
 							break;
 						}
 					}
-					
-					
 				}else {
 					GridClickedButtons.add(btn);
 				}
@@ -160,7 +158,9 @@ public class ButtonManager {
 			return -1;
 		}
 	}
-
+	public static void endGame() {
+		System.out.println("end game");
+	}
 	public static int evaluate() {
 		int totalscore=0;
 		int vscore=0;
@@ -178,18 +178,23 @@ public class ButtonManager {
 			}
 		}
 		ArrayList<Buttons> NewGridClickedButtons=new ArrayList<Buttons> (GridClickedButtons);
-		String VerticalWordH="";
-		String HorizontalWordH="";
-		int X=GridClickedButtons.get(0).getPosX();
-		int Y=GridClickedButtons.get(0).getPosY();
+		
 
 		if(GridClickedButtons.size()==0) {
 			//Aucun chiffre 
-			System.out.println("no chiffre");
+			//System.out.println("no chiffre");
+			passNumber++;
+			if(passNumber>=3) {
+				endGame();
+			}
 			return -1;
 		}
 		else if(GridClickedButtons.size()==1) {
-			
+			String VerticalWordH="";
+			String HorizontalWordH="";
+			int X=GridClickedButtons.get(0).getPosX();
+			int Y=GridClickedButtons.get(0).getPosY();
+			passNumber=1;
 			int k=0;
 			for(int i=X;i>=0;i--) {
 				if(!list.get(Y).get(i).getButton().getText().equals(" ")) {
@@ -304,6 +309,11 @@ public class ButtonManager {
 			
 		}
 		else {
+			String VerticalWordH="";
+			String HorizontalWordH="";
+			int X=GridClickedButtons.get(0).getPosX();
+			int Y=GridClickedButtons.get(0).getPosY();
+			passNumber=1;
 			int Verif=VerifHorizonOrVerti();
 			if(Verif==0) {
 				/*Verification left*/

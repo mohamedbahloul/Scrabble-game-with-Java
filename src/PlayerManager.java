@@ -13,8 +13,8 @@ public class PlayerManager {
 	static String alphabets="aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooppqrrrrrrrrssssttttttuuuuvvwwxyyz";
 	static JPanel P1Panel=new JPanel();
 	static JPanel P2Panel=new JPanel();
-	static Player p1=new Player("hama");
-	static Player p2=new Player("mahdi");
+	static Player p1=new Player("Player 1");
+	static Player p2=new Player("Player 2");
 	static ArrayList<Buttons> listP1=new ArrayList<Buttons>();
 	static ArrayList<Buttons> listP2=new ArrayList<Buttons>();
 	
