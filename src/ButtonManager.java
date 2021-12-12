@@ -20,7 +20,7 @@ public class ButtonManager {
 	static {
 		try {
 			String ligne ;
-			BufferedReader fichier = new BufferedReader(new FileReader("C:\\Users\\bahlo\\OneDrive\\Documents\\GitHub\\ScrabbleJava\\src\\dictionnaire.txt"));
+			BufferedReader fichier = new BufferedReader(new FileReader("C:\\Users\\mahdi\\Documents\\GitHub\\ScrabbleJava\\src\\dictionnaire.txt"));
 		while ((ligne = fichier.readLine()) != null) 
 		{
 			ligne=ligne.toLowerCase();

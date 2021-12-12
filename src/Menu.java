@@ -83,7 +83,7 @@ public class Menu extends JFrame implements ActionListener{
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\mahdi\\Desktop\\scrabble.PNG"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\mahdi\\Documents\\GitHub\\ScrabbleJava\\src\\scrabble.PNG"));
 		lblNewLabel.setBounds(0, 0, 571, 361);
 		contentPane.add(lblNewLabel);
 		btnNewButton.addActionListener(new jeu());
