@@ -42,7 +42,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {//Fenet
 				try {
 					ScrabbleGameFrame frame = new ScrabbleGameFrame();//Affichage de la fenetre
 					frame.setVisible(true);
-					counter();
+					
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -160,34 +160,33 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {//Fenet
 		Timer.setBounds(682, 10, 140, 64);
 		contentPane.add(Timer);
 		this.setVisible(true);
-		
+		counter(); //l'appel de la méthode counter
 		
 	}
 
 	public static void counter() {//Méhode gérant le compteur
-		
+		//déclarer un actionListener pour faire diminuer le compteur à chaque seconde
 		ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	if((currentTime<=0)&&(endGame==false)) {//Si le temps maximal est atteint
             		ButtonManager.endGame();//Fin de la partie
-            		endGame=true;
+            		endGame=true;//end game true pour ne pas lancer la popup du score plusieurs fois
                 }
-                //...Perform a task...
             	currentTime--;//Diminution du temps courant 
-            	Timer.setText(currentTime+"");
+            	Timer.setText(currentTime+"");//ecrire le le temps courant sur l'interface
             	
             }
         };
         
-        Timer timer = new Timer(1000 ,taskPerformer);
+        Timer timer = new Timer(1000 ,taskPerformer);//faire appel au timer qui va s'exécuter chaque 1000 millisecondes et executer l'ActionListener qu'on a déja déclaré
         
-        timer.setRepeats(true);
-        timer.start();
+        timer.setRepeats(true);//indique que le timer va se repeter automatiquement sans l'appeler chaque fois
+        timer.start();//débuter le compteur
         if(currentTime<=0) {
-        	timer.stop();
+        	timer.stop();//si le temps est fini, le compteur va arreter
 		}
         try {
-        Thread.sleep(500);
+        Thread.sleep(500);//lancer aprés 500 millisecondes le programmes
         }
         catch(InterruptedException e) {
         	System.out.println(e.getMessage());
@@ -238,7 +237,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {//Fenet
 		// TODO Auto-generated method stub
 		
 	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
+	/*private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (e.isPopupTrigger()) {
@@ -254,5 +253,5 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {//Fenet
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
-	}
+	}*/
 }
