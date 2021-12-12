@@ -35,7 +35,10 @@ public class ButtonManager {
 		ArrayList<Buttons> li=new ArrayList<Buttons>();
 		for(int i=0;i<15;i++) {
 			for(int j=0;j<15;j++) {
-				li.add(new Buttons(1,j,i,' '));
+				//li.add(new Buttons(1,j,i,' '));
+				Buttons NewButton=new Buttons(1,j,i,' ');
+				NewButton.getButton().setFont(new Font("Tahoma", Font.PLAIN, 8));
+				li.add(NewButton);
 				ButtonsPanel.add(li.get(j).getButton());
 			}
 			list.add(li);
@@ -64,6 +67,23 @@ public class ButtonManager {
 				CurrentPlayerButtonClicked.getButton().setEnabled(false);			
 				CurrentPlayerButtonClicked=null;
 			}
+			else {
+				if(!btn.getButton().getText().equals(" ")) {
+					
+					for( Buttons b :PlayerClickedButtons) {
+						if(Character.toString( b.getValue()).equals( btn.getButton().getText())){
+							b.getButton().setEnabled(true);
+							b.getButton().setText(Character.toString(b.getValue()));
+							PlayerClickedButtons.remove(b);
+							GridClickedButtons.remove(btn);
+							btn.getButton().setText(" ");
+							break;
+						}
+					}
+					
+					
+				}
+			}
 		}else {
 			CurrentPlayerButtonClicked=btn;
 		}
@@ -88,13 +108,16 @@ public class ButtonManager {
 		Random r = new Random();
 		if(testEval) {
 			for(Buttons b:PlayerClickedButtons) {
-				//System.out.print(b.getValue()); 
-				int randomInt=r.nextInt(PlayerManager.alphabets.length());
-				PlayerManager.alphabets = PlayerManager.alphabets.replaceFirst(Character.toString( PlayerManager.alphabets.charAt(randomInt)), "");
-				System.out.println(PlayerManager.alphabets.length());
-				String s=Character.toString(PlayerManager.alphabets.charAt(randomInt));
-				b.getButton().setText(s);
-				b.setValue(s.charAt(0));
+				if(PlayerManager.alphabets.length()!=0) {
+					int randomInt=r.nextInt(PlayerManager.alphabets.length());
+					String s=Character.toString(PlayerManager.alphabets.charAt(randomInt));
+					PlayerManager.alphabets = PlayerManager.alphabets.replaceFirst(Character.toString(PlayerManager.alphabets.charAt(randomInt)), "");
+					b.getButton().setText(s);
+					b.setValue(s.charAt(0));
+				}
+				else {
+					endGame();
+				}
 				
 			}
 			for(Buttons b :GridClickedButtons) {
@@ -159,20 +182,23 @@ public class ButtonManager {
 		}
 	}
 	public static void endGame() {
-		System.out.println("end game");
+		Menu.GameFrame.setVisible(false);
+		JOptionPane.showMessageDialog(null, "You loose!!");
+		
 	}
 	public static int evaluate() {
 		int totalscore=0;
 		int vscore=0;
 		int hscore=0;
 		if(turnNumber==0) {
-			if(list.get(7).get(7).getButton().getText().equals("*")) {
+			if((list.get(7).get(7).getButton().getText().equals("*"))||(list.get(7).get(7).getButton().getText().equals(" "))) {
 				JOptionPane.showMessageDialog(null, "You have to start from he center of the grid!!");
 				System.out.println("wrong");
 				for(Buttons b:GridClickedButtons) {
 					b.getButton().setEnabled(true);
 					b.getButton().setText(" ");
 				}
+				list.get(7).get(7).getButton().setText("*");
 				GridClickedButtons.clear();
 				return -1;
 			}
