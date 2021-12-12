@@ -22,6 +22,8 @@ public class Menu extends JFrame implements ActionListener{
 	JButton btnQuitter = new JButton("Quitter");
 	JLabel lblNewLabel_2 = new JLabel("Bienvenue au jeu du scrabble");
 	JLabel lblNewLabel = new JLabel("");
+	Menu frame ;
+	static ScrabbleGameFrame GameFrame;
 	/**
 	 * Launch the application.
 	 */
@@ -155,7 +157,7 @@ public class Menu extends JFrame implements ActionListener{
 					PlayerManager.p2.setPseudo(t2.getText());
 				}
 				f.setVisible(false);
-				ScrabbleGameFrame f=new ScrabbleGameFrame();
+				GameFrame=new ScrabbleGameFrame();
 			}
 		}));
 		}

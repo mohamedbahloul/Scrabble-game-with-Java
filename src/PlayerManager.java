@@ -29,7 +29,6 @@ public class PlayerManager {
 			ScoreP2.setText(Integer.toString( p2.getScore()));
 			//ScoreP2.updateUI();
 		}
-		
 	}
 	public static PlayerManager PlayerManager;
 	static {

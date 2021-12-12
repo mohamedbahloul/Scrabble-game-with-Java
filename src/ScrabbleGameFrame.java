@@ -37,6 +37,7 @@ public class ScrabbleGameFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+
 	public ScrabbleGameFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1424, 783);

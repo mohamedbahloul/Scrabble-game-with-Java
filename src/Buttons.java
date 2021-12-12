@@ -41,7 +41,6 @@ public class Buttons  implements ActionListener {
 	public void setPlayer(Player p) {
 		this.player = p;
 	}
-	
 	public int getScore() {
 		char c=button.getText().charAt(0);
 			switch(c) {
@@ -62,7 +61,6 @@ public class Buttons  implements ActionListener {
 			default : 
 				return 1;
 			}
-		
 	}
 	public void setScore(int score) {
 		this.score = score;
