@@ -34,10 +34,10 @@ public class PlayerManager {
 	static {
 		ScoreP1.setBackground(Color.WHITE);
 		ScoreP1.setHorizontalAlignment(SwingConstants.CENTER);
-		ScoreP1.setBounds(90, 20, 205, 64);
+		ScoreP1.setBounds(90, 150, 205, 64);
 		ScoreP2.setBackground(Color.WHITE);
 		ScoreP2.setHorizontalAlignment(SwingConstants.CENTER);
-		ScoreP2.setBounds(1121, 20, 205, 64);
+		ScoreP2.setBounds(1121, 150, 205, 64);
 		Random r = new Random();
 		for(int i=0;i<7;i++) {
 			int randomInt=r.nextInt(alphabets.length());

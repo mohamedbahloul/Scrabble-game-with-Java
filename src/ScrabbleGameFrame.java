@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -26,6 +28,9 @@ import javax.swing.JLayeredPane;
 
 public class ScrabbleGameFrame extends JFrame implements WindowListener {
 
+	public static boolean endGame=false;
+	static JLabel Timer = new JLabel("480");
+	public static int currentTime=480;
 	private JPanel contentPane;
 	static ScrabbleGameFrame GameFrame;
 	/**
@@ -37,6 +42,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 				try {
 					ScrabbleGameFrame frame = new ScrabbleGameFrame();
 					frame.setVisible(true);
+					counter();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,6 +71,9 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		PlayerManager.alphabets="aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooppqrrrrrrrrssssttttttuuuuvvwwxyyz";
 		PlayerManager.ScoreP1.setText("0");
 		PlayerManager.ScoreP2.setText("0");
+		currentTime=480;
+		endGame=false;
+		Timer.setText("480");
 		
 	}
 	public ScrabbleGameFrame() {
@@ -72,7 +81,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		addWindowListener(this);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1424, 783);
+		setBounds(0, 0, 1445, 850);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,7 +89,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		contentPane.setLayout(null);
 		JPanel ButtonsPan = new JPanel();
 		ButtonsPan.setBackground(Color.ORANGE);
-		ButtonsPan.setBounds(360, 10, 700, 659);
+		ButtonsPan.setBounds(370, 77, 700, 659);
 		ButtonsPan.add(ButtonManager.ButtonsPanel);
 		contentPane.add(ButtonsPan);
 		
@@ -88,7 +97,7 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setBackground(Color.ORANGE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(90, 340, 205, 64);
+		lblNewLabel.setBounds(100, 407, 205, 64);
 		contentPane.add(lblNewLabel);
 		
 		
@@ -117,11 +126,11 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 				
 			}
 		});
-		btnNewButton.setBounds(614, 672, 198, 64);
+		btnNewButton.setBounds(624, 739, 198, 64);
 		contentPane.add(btnNewButton);
 		
 		JPanel P1ButtonsPan = new JPanel();
-		P1ButtonsPan.setBounds(0, 402, 356, 64);
+		P1ButtonsPan.setBounds(10, 469, 356, 64);
 		PlayerManager.P1Panel.setBackground(Color.ORANGE);
 		P1ButtonsPan.add(PlayerManager.P1Panel);
 		P1ButtonsPan.setBackground(Color.ORANGE);
@@ -131,22 +140,60 @@ public class ScrabbleGameFrame extends JFrame implements WindowListener {
 		lb2NewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lb2NewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lb2NewLabel.setBackground(Color.ORANGE);
-		lb2NewLabel.setBounds(1121, 340, 205, 64);
+		lb2NewLabel.setBounds(1131, 407, 205, 64);
 		contentPane.add(lb2NewLabel);
 		
 		JPanel P2ButtonsPan = new JPanel();
-		P2ButtonsPan.setBounds(1062, 402, 348, 64);
+		P2ButtonsPan.setBounds(1072, 469, 348, 64);
 		PlayerManager.P2Panel.setBackground(Color.ORANGE);
 		P2ButtonsPan.add(PlayerManager.P2Panel);
 		P2ButtonsPan.setBackground(Color.ORANGE);
 		contentPane.add(P2ButtonsPan);
 		
 		JLabel label = new JLabel("");
-		label.setBounds(111, 436, 324, 310);
+		label.setBounds(121, 503, 324, 310);
 		contentPane.add(label);
+		
+		
+		Timer.setHorizontalAlignment(SwingConstants.CENTER);
+		Timer.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Timer.setBounds(682, 10, 140, 64);
+		contentPane.add(Timer);
 		this.setVisible(true);
+		
+		
 	}
 
+	public static void counter() {
+		
+		ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	if((currentTime<=0)&&(endGame==false)) {
+            		ButtonManager.endGame();
+            		endGame=true;
+                }
+                //...Perform a task...
+            	currentTime--;
+            	Timer.setText(currentTime+"");
+            	
+            }
+        };
+        
+        Timer timer = new Timer(1000 ,taskPerformer);
+        
+        timer.setRepeats(true);
+        timer.start();
+        if(currentTime<=0) {
+        	timer.stop();
+		}
+        try {
+        Thread.sleep(500);
+        }
+        catch(InterruptedException e) {
+        	System.out.println(e.getMessage());
+        }
+        
+	}
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
